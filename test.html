@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+	
+
+	// Die URL auf jedenfall anpassen an die gegebenheiten
+        const fetchGetUrl = "http://127.0.0.1:8000/tech_gadgets/gadget/0/"; 
+
+
+
+        async function fetchTestGet() {
+            let result = await fetch(fetchGetUrl)
+            let resultToText = await result.text()
+            console.log(resultToText);
+        }
+
+    </script>
+</head>
+
+<body>
+    <button onclick="fetchTestGet()"> empfange Daten </button>
+</body>
+
+</html>

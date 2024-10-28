@@ -16,9 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
+
+def redirect_to_tech_gadgets(request):
+    return redirect('tech_gadgets/', permanent=True)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tech_gadgets/', include('tech_gadgets.urls')),
+    path('', redirect_to_tech_gadgets),
 ]

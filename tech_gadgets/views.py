@@ -32,12 +32,23 @@ def single_gadget_slug_view(request, gadget_slug):
         return JsonResponse(gadget_match)
     raise Http404("website not found")
 
+#def single_gadget_post_view(request):
+#    if request.method == 'POST':
+#        try:
+#            data = json.loads(request.body)
+#            print(f"POST Data: {data}")
+#            return JsonResponse({'status': 'success'})
+#        except:
+#            return JsonResponse({'status': 'error'})
+
 def single_gadget_post_view(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            print(f"POST Data: {data}")
-            return JsonResponse({'status': 'success'})
-        except:
-            return JsonResponse({'status': 'error'})
+            print("POST data received:", data)
+            # Senden Sie eine Bestätigung zurück
+            return JsonResponse({'status': 'success', 'message': 'Daten empfangen'})
+        except json.JSONDecodeError:
+            return JsonResponse({'status': 'error', 'message': 'JSON-Dekodierungsfehler'}, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Nur POST-Anfragen erlaubt'}, status=405)
  

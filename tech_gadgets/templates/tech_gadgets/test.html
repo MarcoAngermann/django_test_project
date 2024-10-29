@@ -1,11 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test</title>
+    <link rel="stylesheet" href="{% static 'tech_gadgets/style.css' %}">
 </head>
 <body>
     <h1>Das ist ein TEST!!!</h1>
+    {% for gadget in gadget_list %}
+        <h2>
+            {{ gadget.name }}
+        </h2>
+    {% endfor %}
 </body>
 </html>

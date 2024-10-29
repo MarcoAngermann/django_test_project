@@ -1,10 +1,13 @@
 from django.urls import path
-from .views import start_page_view, single_gadget_view, single_gadget_slug_view, single_gadget_post_view
-
+from .views import single_gadget_int_view, GadgetView, RedirectToGadgetView ,start_page_view
 
 urlpatterns = [
-    path('', start_page_view),
-    path('gadget/send_gadget/', single_gadget_post_view),  
-    path('gadget/<int:gadget_id>/', single_gadget_view),
-    path('gadget/<slug:gadget_slug>/', single_gadget_slug_view, name="single_gadget_slug_url"),
+    path('start/', start_page_view),
+    path('', RedirectToGadgetView.as_view()),  # root URL
+    path('gadget/', RedirectToGadgetView.as_view()),  # neu hinzugefügt
+    path('<int:gadget_id>/', RedirectToGadgetView.as_view()),
+    path('gadget/<int:gadget_id>/', single_gadget_int_view),
+    path('gadget/<slug:gadget_slug>/', GadgetView.as_view(), name="single_gadget_slug_url"),
 ]
+
+

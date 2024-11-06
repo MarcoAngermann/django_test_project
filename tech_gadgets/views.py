@@ -5,7 +5,7 @@ from django.utils.text import slugify
 from django.urls import reverse
 from django.views import View
 
-from .dummy_data import gadgets
+from .dummy_data import gadgets, manufacturers
 
 # Create your views here.
 
@@ -33,11 +33,6 @@ class RedirectToGadgetView(RedirectView):
             new_kwargs = {"gadget_slug": slug}
             return super().get_redirect_url(*args, **new_kwargs)
         raise Http404("Gadget nicht gefunden.")
-
-
-
-
-
 
 def single_gadget_int_view(request, gadget_id):
     if 0 <= gadget_id < len(gadgets):
@@ -77,7 +72,6 @@ def single_gadget_view(request, gadget_slug=""):
                 
     if gadget_match:
             return JsonResponse(gadget_match)
-            raise Http404()
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -85,8 +79,16 @@ def single_gadget_view(request, gadget_slug=""):
             return JsonResponse({'status': 'success'})
         except:
                 return JsonResponse({'status': 'error'})
+        raise Http404()
 
-
+def manufacturers_view(request, manufacturer_id=None):
+    if manufacturer_id is not None:
+        if 0 <= manufacturer_id < len(manufacturers):
+            return JsonResponse(manufacturers[manufacturer_id])
+        else:
+            return JsonResponse({"error": "Hersteller nicht gefunden."}, status=404)
+    else:
+        return JsonResponse(manufacturers, safe=False)
 
 
 

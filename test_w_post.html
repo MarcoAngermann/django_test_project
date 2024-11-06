@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Post & Get</title>
     <script>
 
-        const fetchGetUrl = "http://127.0.0.1:8000/tech_gadgets/gadget/1";
+        const fetchGetUrl = "http://127.0.0.1:8000/tech_gadgets/gadget/";
         const fetchPostUrl = "http://127.0.0.1:8000/tech_gadgets/gadget/";
-
 
         async function fetchTestGet() {
             let result = await fetch(fetchGetUrl)
@@ -33,12 +32,43 @@
 
         }
 
+        const fetchGetUrlManfactures = "http://127.0.0.1:8000/tech_gadgets/manufacture/1";
+        const fetchPostUrlManufactures = "http://127.0.0.1:8000/tech_gadgets/manufacture/";
+
+        async function fetchTestGetManufactures() {
+            let result = await fetch(fetchGetUrlManfactures )
+            let resultToText = await result.text()
+            console.log(resultToText);
+        }
+
+        async function fetchTestPostManufactures() {
+            const data = { "test": "funktioniert" };
+
+            let response = await fetch(fetchPostUrlManufactures, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            let result = await response.json();
+            console.log(result);
+
+        }
+
     </script>
 </head>
 
 <body>
-    <button onclick="fetchTestGet()"> empfange Daten </button>
-    <button onclick="fetchTestPost()"> Sende Daten </button>
+    <div>
+        <button style="padding: 16px; border-radius: 25px; color: white; background-color: orangered; border: none; cursor: pointer;"  onclick="fetchTestGet()"> Empfange gadgets </button>
+        <button style="padding: 16px; border-radius: 25px; color: white; background-color: orangered; border: none; cursor: pointer;" onclick="fetchTestPost()"> Sende gadgets </button>
+    </div>
+    <div style="margin-top: 20px;">
+        <button style="padding: 16px; border-radius: 25px; color: white; background-color: green; border: none; cursor: pointer;" onclick="fetchTestGetManufactures()"> Empfange manufactures </button>
+        <button style="padding: 16px; border-radius: 25px; color: white; background-color: green; border: none; cursor: pointer;" onclick="fetchTestPostManufactures()"> Sende manufactures </button>
+    </div>
 </body>
 
 </html>
